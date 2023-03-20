@@ -4,6 +4,10 @@
   "description": "hugo and tailwind starter",
   "author": "John Meguerian <johnmeguerian@gmail.com>",
   "license": "ISC",
+  "scripts": {
+    "dev": "hugo server --disableFastRender",
+    "build": "hugo --gc --minify"
+  },
   "devDependencies": {
     "autoprefixer": "^10.4.7",
     "postcss": "^8.4.14",
