@@ -1,0 +1,38 @@
+baseURL: http://example.org/
+languageCode: en-us
+title: Ventus
+disableKinds: ['taxonomy', 'term', 'RSS']
+ignoreErrors: [error-disable-taxonomy]
+
+security:
+  exec:
+    osEnv: ['(?i)^(PATH|PATHEXT|APPDATA|TMP|TEMP|TERM)$', '^ASDF_DIR$', '^HOME$']
+  funcs:
+    getenv: ['^HUGO_', '^NETLIFY_', '^VERCEL_', 'NODE_']
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+
+module:
+  hugoVersion:
+    extended: false
+    min: v0.112.0
+  mounts:
+    - source: assets
+      target: assets
+    - source: hugo_stats.json
+      target: assets/watching/hugo_stats.json
+
+build:
+  writeStats: true
+  cachebusters:
+    - source: assets/watching/hugo_stats\.json
+      target: index\.css
+    - source: (postcss|tailwind)\.config\.js
+      target: css
+    - source: assets/.*\.(js|ts|jsx|tsx)
+      target: js
+    - source: assets/.*\.(.*)$
+      target: $1
